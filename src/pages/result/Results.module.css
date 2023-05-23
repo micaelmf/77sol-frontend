@@ -1,0 +1,41 @@
+.results, .result-list {
+    display: flex;
+    gap: 32px;
+}
+
+.results {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 16px;
+    border: 1px solid black;
+}
+
+.result-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;   
+}
+
+.item {
+    min-width: fit-content;
+}
+
+.item span {
+    border-bottom: solid 1px var(--dark-blue-600);
+}
+
+.descricao {
+    height: 180px;
+    overflow: auto;
+}
+
+.container {
+    min-width: 240px;
+    padding: 2.25rem;
+}
+
+.container h2 {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}

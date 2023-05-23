@@ -1,0 +1,32 @@
+:root {
+  --white: #fff;
+
+  --dark-blue-500: #6e7191;
+  --dark-blue-600: #393453;
+  --dark-blue-900: #262338;
+
+  --green-500: #00875f;
+
+  --input-focus: #063ef9;
+  --button-primary: #0431c7;
+  --button-active: #00259e;
+}
+
+* {
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--white);
+  color: var(--gray-500);
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input, textarea, select, button {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+}
+

@@ -1,0 +1,17 @@
+.installment {
+    border: 1px solid gray;
+    border-radius: 8px;
+    gap: 8px;
+    padding: 16px;
+    display: table;
+}
+
+.installment span:nth-child(odd) {
+    float: left;
+    clear: left;
+}
+
+.installment span:nth-child(even) {
+    float: right;
+}
+

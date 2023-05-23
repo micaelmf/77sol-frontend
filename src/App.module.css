@@ -1,0 +1,14 @@
+/* .wrapper {
+  max-width: 70rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+} */
+
+.container {
+  min-width: 240px;
+  padding: 2.25rem;
+}
+
+div:not(:last-child) {
+  margin-bottom: 20px;
+}
