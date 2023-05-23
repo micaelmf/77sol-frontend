@@ -1,6 +1,6 @@
 import styles from './Installment.module.css';
 
-export interface Installmente {
+export interface Installment {
   parcelas: number;
   taxa_minina: number;
   taxa_maxima: number;
@@ -9,7 +9,7 @@ export interface Installmente {
 }
 
 export interface InstallmentProps {
-  content: Installmente;
+  content: Installment;
 }
 
 export function Installment({ content }: InstallmentProps) {

@@ -1,0 +1,9 @@
+.submit {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 16px;
+    background-color: var(--button-primary);
+    color: var(--white);
+    cursor:pointer;
+}

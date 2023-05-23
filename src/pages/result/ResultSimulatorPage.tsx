@@ -2,8 +2,8 @@ import styles from './Results.module.css';
 import { Installment } from '../../components/installment/Installment';
 import { Product } from '../../components/product/Product';
 
-export function ResultSimulatorPage() {
-  const response = JSON.parse(localStorage.getItem('results'));
+export function ResultSimulatorPage({ data }) {
+  const response = JSON.parse(localStorage.getItem('results')) ?? data;
 
   return (
     <div className={styles.container}>

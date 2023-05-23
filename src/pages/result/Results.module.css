@@ -4,16 +4,19 @@
 }
 
 .results {
+    margin-top: 32px;
     flex-wrap: wrap;
     justify-content: flex-start;
     padding: 16px;
-    border: 1px solid black;
+    border: 1px solid var(--dark-blue-500);
+    box-shadow: 6px 6px var(--dark-blue-500);
+    border-radius: 8px;
 }
 
 .result-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;   
+    gap: 32px;   
 }
 
 .item {
@@ -38,4 +41,22 @@
     margin-top: 32px;
     margin-bottom: 16px;
     font-weight: 500;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .result-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;   
+    }
+    
+}
+
+@media only screen and (max-width: 425px) {
+    .result-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 32px;   
+    }
 }

@@ -2,6 +2,8 @@ import { FormEvent, useState } from 'react';
 import axios from 'axios';
 import styles from './Form.module.css';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/logo.png';
+import { Submit } from '../../components/buttons/submit/Submit';
 
 export function FormSimulatorPage() {
   const navigate = useNavigate();
@@ -42,54 +44,62 @@ export function FormSimulatorPage() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Simulador solar</h1>
-      <p>É simples e fácil!</p>
-
-      <div className={styles.fields}>
-        <div>
-          <label htmlFor="cep">Cep</label>
-          <input
-            type="text"
-            id="cep"
-            name="cep"
-            value={cep}
-            onChange={(event) => setCep(event.target.value)}
-            autoFocus
-          />
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.header}>
+          <img src={logo} alt="Logotipo do Ignite" />
+          <h1>Simulador solar</h1>
+          <p>É simples e fácil!</p>
         </div>
 
-        <div>
-          <label htmlFor="tipo-estrutura">Tipo de estrutura</label>
-          <select
-            name="tipo_estrutura"
-            id="tipo-estrutura"
-            value={type}
-            onChange={(event) => setType(event.target.value)}
-          >
-            <option value="">Selecione o tipo de estrutura</option>
-            {typeList.map((item) => (
-              <option key={item.value} value={item.value}>
-                {item.name}
-              </option>
-            ))}
-          </select>
+        <div className={styles.fields}>
+          <div className={styles['input-container']}>
+            {/* <label htmlFor="cep">Cep</label> */}
+            <input
+              type="text"
+              id="cep"
+              name="cep"
+              value={cep}
+              placeholder="CEP"
+              onChange={(event) => setCep(event.target.value)}
+              autoFocus
+            />
+          </div>
+
+          <div>
+            {/* <label htmlFor="tipo-estrutura">Tipo de estrutura</label> */}
+            <select
+              className={styles['select-container']}
+              name="tipo_estrutura"
+              id="tipo-estrutura"
+              value={type}
+              onChange={(event) => setType(event.target.value)}
+            >
+              <option value="">Selecione o tipo de estrutura</option>
+              {typeList.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles['input-container']}>
+            {/* <label htmlFor="valor-conta">Valor da conta</label> */}
+            <input
+              id="valor-conta"
+              name="valor_conta"
+              value={value}
+              placeholder="Valor da conta"
+              onChange={(event) =>
+                setValue((event.target as HTMLInputElement).value)
+              }
+            />
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="valor-conta">Valor da conta</label>
-          <input
-            id="valor-conta"
-            name="valor_conta"
-            value={value}
-            onChange={(event) =>
-              setValue((event.target as HTMLInputElement).value)
-            }
-          />
-        </div>
-      </div>
-
-      <button type="submit">Simular</button>
-    </form>
+        <Submit>Simular</Submit>
+      </form>
+    </div>
   );
 }

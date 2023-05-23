@@ -47,8 +47,22 @@
     justify-content: flex-end;
 }
 
-.modal .close {
+.modal .close-icon {
+    background: none;
+	border: none;
+    padding: 8px;
     color: #585858;
     text-decoration: none;
     font-size: 2rem;
+    cursor:pointer;
+}
+
+.modal .close-button {
+    width: 100px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--button-primary);
+    color: var(--white);
+    cursor:pointer;
 }

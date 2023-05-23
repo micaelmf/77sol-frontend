@@ -34,7 +34,12 @@ export function Product({ content }: ProductProps) {
       <p>Quantidade: {content.qtde}</p>
       <p>Valor: {content.valor}</p>
       <p>Categoria:{content.categoria}</p>
-      <button onClick={() => setIsModalVisible(content.id)}>Ver mais</button>
+      <button
+        className={styles['show-more']}
+        onClick={() => setIsModalVisible(content.id)}
+      >
+        Ver mais
+      </button>
       {isModalVisible === content.id && (
         <Modal
           key={content.id.toString()}

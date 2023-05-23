@@ -1,9 +1,9 @@
 .installment {
-    border: 1px solid gray;
+    border: 1px solid var(--dark-blue-500);
     border-radius: 8px;
-    gap: 8px;
     padding: 16px;
     display: table;
+    box-shadow: 6px 6px var(--dark-blue-500);
 }
 
 .installment span:nth-child(odd) {

@@ -13,13 +13,15 @@ export function Modal({ children, title, onClose }: ModalProps) {
       <div className={styles['modal-container']}>
         <div className={styles.header}>
           <h2 className={styles['modal-title']}>{title}</h2>
-          <button className={styles.close} onClick={onClose}>
+          <button className={styles['close-icon']} onClick={onClose}>
             &times;
           </button>
         </div>
         <div className={styles.content}>{children}</div>
         <div className={styles.footer}>
-          <button onClick={onClose}>Fechar</button>
+          <button className={styles['close-button']} onClick={onClose}>
+            Fechar
+          </button>
         </div>
       </div>
     </div>

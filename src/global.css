@@ -1,6 +1,9 @@
 :root {
   --white: #fff;
 
+  --gray-100: #f3f3f3;
+
+  --dark-blue-100: #e2e3f3;
   --dark-blue-500: #6e7191;
   --dark-blue-600: #393453;
   --dark-blue-900: #262338;
@@ -20,12 +23,13 @@
 
 body {
   background: var(--white);
-  color: var(--gray-500);
+  color: var(--dark-blue-600);
   -webkit-font-smoothing: antialiased;
 }
 
 body, input, textarea, select, button {
   font-family: 'Quicksand', sans-serif;
+  color: var(--dark-blue-600);
   font-weight: 500;
   font-size: 1rem;
 }
