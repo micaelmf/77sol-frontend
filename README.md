@@ -1,10 +1,11 @@
-# 77sol-frontend
+## 77sol-frontend
 
 Technical challenge for frontend selection process
 
-# Commands
+## Commands
 
-npm install
-npm run dev
-npm run test
-npm run storybook
+Use commands below to configure and run project:
+`npm install`,
+`npm run dev`,
+`npm run test`,
+`npm run storybook`,
