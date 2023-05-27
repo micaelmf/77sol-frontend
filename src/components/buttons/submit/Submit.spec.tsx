@@ -4,7 +4,7 @@ import { Submit } from './Submit';
 
 describe('Submit', () => {
   it('Must load component modal', () => {
-    render(<Submit />);
+    render(<Submit loading={false} />);
 
     expect(screen.getByText('Simular')).toBeInTheDocument();
   });

@@ -1,32 +1,61 @@
 import { FormEvent, useState } from 'react';
 import axios from 'axios';
-import styles from './Form.module.css';
-import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
+import {
+  TextField,
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Button,
+} from '@mui/material';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import styles from './Form.module.css';
 import { Submit } from '../../components/buttons/submit/Submit';
+
+interface TypeItem {
+  value: string;
+  name: string;
+}
+
+const typeList: TypeItem[] = [
+  { name: 'Fibrocimento Madeira', value: 'fibrocimento-madeira' },
+  { name: 'Fibrocimento Metálico', value: 'fibrocimento-metalico' },
+  { name: 'Cerâmico', value: 'ceramico' },
+  { name: 'Metálico', value: 'metalico' },
+  { name: 'Laje', value: 'laje' },
+  { name: 'Solo', value: 'solo' },
+];
 
 export function FormSimulatorPage() {
   const navigate = useNavigate();
 
-  const [cep, setCep] = useState('');
-  const [type, setType] = useState('');
-  const [value, setValue] = useState('');
+  const [cep, setCep] = useState<string>('');
+  const [type, setType] = useState<string>('');
+  const [value, setValue] = useState<string>('');
+  const [loading, setLoading] = useState(false);
 
-  const typeList = [
-    { name: 'Fibrocimento Madeira', value: 'fibrocimento-madeira' },
-    { name: 'Fibrocimento Metálico', value: 'fibrocimento-metalico' },
-    { name: 'Cerâmico', value: 'ceramico' },
-    { name: 'Metálico', value: 'metalico' },
-    { name: 'Laje', value: 'laje' },
-    { name: 'Solo', value: 'solo' },
-  ];
+  const handleCepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCep(event.target.value);
+  };
+
+  const handleTypeChange = (event: SelectChangeEvent) => {
+    setType(event.target.value as string);
+  };
+
+  const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    setLoading(true);
 
     console.log('form', [cep, type, value]);
     if (!cep || !type || !value) {
       console.log('erro');
+      setLoading(false);
       return;
     }
 
@@ -41,65 +70,53 @@ export function FormSimulatorPage() {
     setCep('');
     setType('');
     setValue('');
+
+    setLoading(false);
   }
 
   return (
     <div className={styles.container}>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.content}>
         <div className={styles.header}>
           <img src={logo} alt="Logotipo do Ignite" />
           <h1>Simulador solar</h1>
           <p>É simples e fácil!</p>
         </div>
-
-        <div className={styles.fields}>
-          <div className={styles['input-container']}>
-            {/* <label htmlFor="cep">Cep</label> */}
-            <input
-              type="text"
-              id="cep"
-              name="cep"
-              value={cep}
-              placeholder="CEP"
-              onChange={(event) => setCep(event.target.value)}
-              autoFocus
-            />
-          </div>
-
-          <div>
-            {/* <label htmlFor="tipo-estrutura">Tipo de estrutura</label> */}
-            <select
-              className={styles['select-container']}
-              name="tipo_estrutura"
-              id="tipo-estrutura"
+        <Box className={styles.box} component="form" onSubmit={handleSubmit}>
+          <TextField
+            className={styles['field-input']}
+            id="cep"
+            label="CEP"
+            variant="outlined"
+            onChange={handleCepChange}
+          />
+          <FormControl fullWidth>
+            <InputLabel id="type-label">Tipo de estrutura</InputLabel>
+            <Select
+              className={styles['field-select']}
+              labelId="type-label"
+              id="type"
               value={type}
-              onChange={(event) => setType(event.target.value)}
+              label="Tipo de estrutura"
+              onChange={handleTypeChange}
             >
-              <option value="">Selecione o tipo de estrutura</option>
               {typeList.map((item) => (
-                <option key={item.value} value={item.value}>
+                <MenuItem key={item.value} value={item.value}>
                   {item.name}
-                </option>
+                </MenuItem>
               ))}
-            </select>
-          </div>
-
-          <div className={styles['input-container']}>
-            {/* <label htmlFor="valor-conta">Valor da conta</label> */}
-            <input
-              id="valor-conta"
-              name="valor_conta"
-              value={value}
-              placeholder="Valor da conta"
-              onChange={(event) =>
-                setValue((event.target as HTMLInputElement).value)
-              }
-            />
-          </div>
-        </div>
-
-        <Submit>Simular</Submit>
-      </form>
+            </Select>
+          </FormControl>
+          <TextField
+            className={styles['field-input']}
+            id="value"
+            label="Valor da Conta"
+            variant="outlined"
+            onChange={handleValueChange}
+          />
+          <Submit loading={loading}>Simular</Submit>
+        </Box>
+      </div>
     </div>
   );
 }

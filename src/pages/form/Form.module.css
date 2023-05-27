@@ -1,8 +1,3 @@
-.fields div{
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
 .container {
     padding: 16px;
     min-height: 100vh;
@@ -12,27 +7,7 @@
     background-color: var(--dark-blue-100);
 }
 
-/* Header */
-
-.header {
-    display: flex;
-    justify-content: left;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.header img {
-    width: 100%;
-    height: 60px;
-    object-fit: contain;
-    object-position: left;
-    margin-top: 24px;
-    margin-bottom: 24px;
-}
-
-/* Form */
-
-.form {
+.content {
     background-color: var(--white);
     width: 500px;
     min-width: 240px;
@@ -41,36 +16,26 @@
     border-radius: 8px;
 }
 
+/* Header */
 
-/* Input */
-
-.input-container {
-    position: relative;
+.header {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
 }
 
-.input-container input {
-    padding: 16px;
-    background-color: var(--gray-100);
-    border: none;
-    width: 100%;
-    border-radius: 16px;
-    transition: ease-in-out 0.2s;
+.header img {
+    height: 60px;
+    object-fit: contain;
+    object-position: left;
+    margin-top: 24px;
+    margin-bottom: 24px;
 }
 
-.input-container input:focus {
-    outline: 2px solid var(--input-focus);
-}
-
-/* Select */
-
-.select-container {
-    padding: 16px;
-    border-radius: 16px;
-    border: none;
-    background-color: var(--gray-100);
-    width: 100%;
-}
-
-.select-container select:focus {
-    outline: 2px solid var(--input-focus);
+form.box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
