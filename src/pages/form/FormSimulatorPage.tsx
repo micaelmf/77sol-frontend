@@ -8,7 +8,8 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Button,
+  Alert,
+  AlertTitle,
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import styles from './Form.module.css';
@@ -31,47 +32,77 @@ const typeList: TypeItem[] = [
 export function FormSimulatorPage() {
   const navigate = useNavigate();
 
+  const [alertShow, setAlertShow] = useState(false);
+
+  const [cepError, setCepError] = useState(false);
+  const [valueError, setValueError] = useState(false);
+  const [typeError, setTypeError] = useState(false);
+
   const [cep, setCep] = useState<string>('');
   const [type, setType] = useState<string>('');
   const [value, setValue] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
-  const handleCepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCep(event.target.value);
+  const handleCep = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let value = event.target.value;
+    setCepError(false);
+    setCep(value);
+
+    if (value === '' || !cepIsValid(value)) {
+      setCepError(true);
+    }
   };
 
-  const handleTypeChange = (event: SelectChangeEvent) => {
-    setType(event.target.value as string);
+  const cepIsValid = (value: string) => {
+    const digitsOnly = value.replace(/\D/g, '');
+    return digitsOnly.length === 8;
   };
 
-  const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+  const handleType = (event: SelectChangeEvent) => {
+    let value = event.target.value;
+    setTypeError(false);
+    setType(value);
+
+    if (value === '') {
+      setTypeError(true);
+    }
+  };
+
+  const handleValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let value = event.target.value;
+    setValueError(false);
+    setValue(value);
+
+    if (value === '') {
+      setValueError(true);
+    }
   };
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     setLoading(true);
 
-    console.log('form', [cep, type, value]);
     if (!cep || !type || !value) {
       console.log('erro');
+      setAlertShow(true);
       setLoading(false);
       return;
     }
 
-    // ?estrutura=fibrocimento-metalico&valor_conta=2900&cep=06543-001
-    const response = await axios.get(
-      `https://api2.77sol.com.br/busca-cep?estrutura=${type}&valor_conta=${value}&cep=${cep}`
-    );
+    setAlertShow(false);
 
-    localStorage.setItem('results', JSON.stringify(response));
-    navigate('/results');
+    try {
+      // ?estrutura=fibrocimento-metalico&valor_conta=2900&cep=06543-001
+      const response = await axios.get(
+        `https://api2.77sol.com.br/busca-cep?estrutura=${type}&valor_conta=${value}&ceps=${cep}`
+      );
 
-    setCep('');
-    setType('');
-    setValue('');
-
-    setLoading(false);
+      localStorage.setItem('results', JSON.stringify(response));
+      navigate('/results');
+    } catch (error) {
+      alert('Tente novamente mais tarde: ' + error.message);
+      setLoading(false);
+    }
   }
 
   return (
@@ -81,14 +112,27 @@ export function FormSimulatorPage() {
           <img src={logo} alt="Logotipo do Ignite" />
           <h1>Simulador solar</h1>
           <p>É simples e fácil!</p>
+
+          {alertShow ? (
+            <Alert severity="error">
+              <AlertTitle>Erro</AlertTitle>
+              Por favor, verifique o preenchimento dos campos
+            </Alert>
+          ) : (
+            ''
+          )}
         </div>
         <Box className={styles.box} component="form" onSubmit={handleSubmit}>
           <TextField
+            fullWidth
             className={styles['field-input']}
             id="cep"
             label="CEP"
             variant="outlined"
-            onChange={handleCepChange}
+            error={cepError}
+            helperText={cepError ? 'CEP inválido' : ''}
+            onChange={handleCep}
+            onBlur={handleCep}
           />
           <FormControl fullWidth>
             <InputLabel id="type-label">Tipo de estrutura</InputLabel>
@@ -98,7 +142,10 @@ export function FormSimulatorPage() {
               id="type"
               value={type}
               label="Tipo de estrutura"
-              onChange={handleTypeChange}
+              error={typeError}
+              helperText={typeError ? 'Escolha o tipo de estrutura' : ''}
+              onChange={handleType}
+              onBlur={handleType}
             >
               {typeList.map((item) => (
                 <MenuItem key={item.value} value={item.value}>
@@ -108,11 +155,15 @@ export function FormSimulatorPage() {
             </Select>
           </FormControl>
           <TextField
+            fullWidth
             className={styles['field-input']}
             id="value"
             label="Valor da Conta"
             variant="outlined"
-            onChange={handleValueChange}
+            error={valueError}
+            helperText={valueError ? 'Preecha o valor da sua conta' : ''}
+            onChange={handleValue}
+            onBlur={handleValue}
           />
           <Submit loading={loading}>Simular</Submit>
         </Box>
